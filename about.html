@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>About Kappa Calc — Free Inter-Rater Reliability Calculator</title>
+<meta name="description" content="Kappa Calc is a free, browser-based Cohen's Kappa calculator built for researchers, students, and coders who need a quick, accurate inter-rater reliability score." />
+<link rel="canonical" href="https://cohen-s-kappa.vercel.app/about.html" />
+<link rel="stylesheet" href="styles.css" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2006445566626425" crossorigin="anonymous"></script>
+</head>
+<body>
+<header class="site-nav">
+  <div class="wrap">
+    <a href="/" class="wordmark"><span class="kap">κ</span> Kappa Calc <small>INTER-RATER RELIABILITY</small></a>
+    <nav><a href="/#calculator">Calculator</a><a href="/#guide">Guide</a><a href="/#faq">FAQ</a></nav>
+  </div>
+</header>
+<main class="simple-page">
+  <h1>About Kappa Calc</h1>
+  <p>
+    Kappa Calc is a single-purpose tool: a fast, accurate, free calculator for Cohen's Kappa,
+    the standard statistic for measuring agreement between two raters or two coding methods.
+    It was built after noticing that most existing statistics calculators bury inter-rater
+    reliability inside general-purpose suites, require signups, or don't report a confidence
+    interval alongside the kappa value itself.
+  </p>
+  <h2>Who it's for</h2>
+  <p>
+    Graduate students running content analysis for a thesis, clinical researchers checking
+    agreement between diagnosticians, qualitative researchers coding interview transcripts,
+    and machine-learning teams validating annotation quality — anyone who needs a trustworthy
+    kappa value without installing statistical software or writing code.
+  </p>
+  <h2>How it works</h2>
+  <p>
+    Everything runs client-side in JavaScript, directly in your browser. Your data — your
+    confusion matrix — is never uploaded, stored, or transmitted anywhere. Closing the tab
+    clears it completely.
+  </p>
+  <h2>Methodology</h2>
+  <p>
+    Calculations follow Cohen's original 1960 formulation of kappa, with the standard error
+    computed using the large-sample approximation described by Fleiss, Cohen &amp; Everitt
+    (1969). Interpretation bands follow Landis &amp; Koch (1977). See the
+    <a href="/#guide">calculator guide</a> for the full formulas.
+  </p>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div><a href="/about.html">About</a><a href="/privacy.html">Privacy Policy</a><a href="/contact.html">Contact</a></div>
+    <div>&copy; <span id="year"></span> Kappa Calc.</div>
+  </div>
+</footer>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
