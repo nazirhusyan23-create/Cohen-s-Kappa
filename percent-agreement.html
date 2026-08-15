@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Percent Agreement Calculator — Paste Two Raters' Scores, Get Instant Agreement</title>
+<meta name="description" content="Free percent agreement calculator. Paste two raters' scores directly — no matrix to build. Get observed agreement, mismatch highlighting, and an automatic Cohen's Kappa, instantly in your browser." />
+<meta name="keywords" content="percent agreement calculator, observed agreement calculator, interrater agreement percentage, raw agreement calculator, compare two raters scores" />
+<link rel="canonical" href="https://cohen-s-kappa.vercel.app/percent-agreement.html" />
+<meta name="robots" content="index, follow" />
+<meta name="google-site-verification" content="9bSXV0oYwCNz4T_QT4-FbvCW3bJShIEgX8HZMbep9Co" />
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Percent Agreement Calculator — Paste Two Raters' Scores" />
+<meta property="og:description" content="Paste in two raters' scores and get percent agreement, mismatch highlighting, and an automatic Cohen's Kappa — instantly, in your browser." />
+<meta property="og:url" content="https://cohen-s-kappa.vercel.app/percent-agreement.html" />
+<meta property="og:site_name" content="Kappa Calc" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Percent Agreement Calculator — Paste Two Raters' Scores" />
+<meta name="twitter:description" content="Free percent agreement calculator. No matrix to build — just paste your two raters' scores. No signup, no server round-trip." />
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='16' fill='%232f6f5e'/%3E%3Ctext x='50' y='68' font-size='58' font-family='Georgia,serif' fill='%23eef1ec' text-anchor='middle'%3E%CE%BA%3C/text%3E%3C/svg%3E" />
+<link rel="stylesheet" href="styles.css" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2006445566626425" crossorigin="anonymous"></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Percent Agreement Calculator",
+  "url": "https://cohen-s-kappa.vercel.app/percent-agreement.html",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any (browser-based)",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "A free browser-based calculator for raw percent agreement between two raters. Paste two lists of scores directly and get observed agreement, mismatch highlighting, and an automatically computed Cohen's Kappa."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is percent agreement?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Percent agreement, also called raw or observed agreement, is simply the proportion of items where two raters gave the same rating, with no adjustment for chance. It's the simplest reliability statistic to compute and understand, but it can overstate reliability when one category is used far more often than others."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why is percent agreement usually higher than Cohen's Kappa?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Percent agreement doesn't subtract out the agreement you'd expect from chance alone, so it's almost always higher than Cohen's Kappa, sometimes substantially so when categories are unevenly used. Reporting both numbers together gives a fuller picture than either alone."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is percent agreement good enough to report on its own?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Most methodologists recommend reporting a chance-corrected statistic like Cohen's Kappa or Fleiss' Kappa alongside percent agreement, rather than percent agreement alone, since a high percentage can be misleading if one category dominates the data."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="wrap">
+    <a href="/" class="wordmark"><span class="kap">κ</span> Kappa Calc <small>INTER-RATER RELIABILITY</small></a>
+    <nav>
+      <a href="/#calculator">Cohen's Kappa</a>
+      <a href="/fleiss-kappa.html">Fleiss' Kappa</a>
+      <a href="/percent-agreement.html">Percent Agreement</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero wrap" id="calculator">
+    <p class="eyebrow">Free &middot; Client-side &middot; No sign-up</p>
+    <h1>Percent Agreement Calculator</h1>
+    <p class="lede">
+      Paste two raters' scores directly — no confusion matrix to build by hand. Get the
+      percent agreement, a side-by-side comparison with mismatches highlighted, and an
+      automatically computed Cohen's Kappa for the chance-corrected version — all instantly,
+      in your browser.
+    </p>
+
+    <div class="calc-card">
+      <div class="calc-toolbar">
+        <span class="field-label">Format</span>
+        <select id="parseMode" class="select" aria-label="Input format">
+          <option value="auto" selected>Auto-detect (commas, spaces, or new lines)</option>
+        </select>
+        <button type="button" id="loadExample" class="btn ghost">Load example data</button>
+        <button type="button" id="resetInputs" class="btn ghost">Clear</button>
+      </div>
+
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 16px;" id="inputGrid">
+        <div>
+          <label for="raterA" class="field-label" style="display:block; margin-bottom:6px;">Rater A's scores</label>
+          <textarea id="raterA" rows="6" style="width:100%; font-family: var(--font-mono); font-size: 0.9rem; padding: 10px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--paper); color: var(--ink);" placeholder="e.g. Yes, No, Yes, Yes, No"></textarea>
+        </div>
+        <div>
+          <label for="raterB" class="field-label" style="display:block; margin-bottom:6px;">Rater B's scores</label>
+          <textarea id="raterB" rows="6" style="width:100%; font-family: var(--font-mono); font-size: 0.9rem; padding: 10px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--paper); color: var(--ink);" placeholder="e.g. Yes, No, No, Yes, No"></textarea>
+        </div>
+      </div>
+
+      <div class="calc-actions">
+        <button type="button" id="computeBtn" class="btn">Calculate Agreement</button>
+      </div>
+
+      <div class="results" id="results" hidden>
+        <div class="stamp" id="stamp">
+          <div class="stamp-kappa" id="stampKappa">0%</div>
+          <div class="stamp-label" id="stampLabel">Percent Agreement</div>
+        </div>
+        <div>
+          <div class="stat-grid">
+            <div class="stat">
+              <div class="stat-label">Matching items</div>
+              <div class="stat-value" id="statMatches">—</div>
+            </div>
+            <div class="stat">
+              <div class="stat-label">Total items</div>
+              <div class="stat-value" id="statTotal">—</div>
+            </div>
+            <div class="stat">
+              <div class="stat-label">Cohen's Kappa (bonus)</div>
+              <div class="stat-value" id="statKappa">—</div>
+            </div>
+            <div class="stat">
+              <div class="stat-label">Kappa interpretation</div>
+              <div class="stat-value" id="statInterp" style="font-size:0.95rem;">—</div>
+            </div>
+          </div>
+          <p class="calc-note">Cohen's Kappa here corrects for chance agreement based on how often each category appears in your data. Want the full confidence interval? Use the <a href="/#calculator">Cohen's Kappa Calculator</a>.</p>
+        </div>
+      </div>
+
+      <div class="matrix-scroll" id="pairTableWrap" style="margin-top: 18px; display:none;">
+        <table class="matrix" id="pairTable"></table>
+      </div>
+    </div>
+  </section>
+
+  <div class="ad-slot ad-leaderboard" aria-hidden="false">
+    <div class="ad-inner">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2006445566626425"
+           data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+  </div>
+
+  <article class="content" id="guide">
+    <h2>What Is Percent Agreement?</h2>
+    <p>
+      Percent agreement — also called raw agreement or observed agreement — is the simplest way
+      to measure how consistently two raters classify the same items: the proportion of items
+      where both raters gave the same rating. It's easy to compute and easy to explain to a
+      non-technical audience, which is why it's still widely reported alongside more rigorous
+      statistics. The catch is that it doesn't correct for chance — if two raters both default
+      to the most common category most of the time, they can rack up a high percent agreement
+      without actually agreeing on the harder, less common cases.
+    </p>
+
+    <h2>How to Use This Calculator</h2>
+    <p>
+      Paste Rater A's scores into the left box and Rater B's scores into the right box — one
+      per line, or separated by commas or spaces, in the same order for both raters. Click
+      <code>Calculate Agreement</code> to see the percent agreement, a side-by-side table with
+      mismatches highlighted, and an automatically computed Cohen's Kappa built from your data's
+      own category frequencies. Everything runs locally in your browser; nothing is uploaded.
+    </p>
+
+    <h2>Percent Agreement vs. Cohen's Kappa</h2>
+    <p>
+      The two numbers answer slightly different questions. Percent agreement tells you how
+      often the raters matched, full stop. Cohen's Kappa tells you how much better than chance
+      that matching was, given how often each category was actually used. If your data leans
+      heavily toward one category, expect the gap between the two numbers to be large — that
+      gap is itself informative, and worth reporting alongside both figures.
+    </p>
+    <table class="ref">
+      <thead><tr><th>Statistic</th><th>What it tells you</th><th>Corrects for chance?</th></tr></thead>
+      <tbody>
+        <tr><td>Percent agreement</td><td>Raw proportion of matching ratings</td><td>No</td></tr>
+        <tr><td>Cohen's Kappa</td><td>Agreement beyond what chance predicts (2 raters)</td><td>Yes</td></tr>
+        <tr><td>Fleiss' Kappa</td><td>Agreement beyond chance (3+ raters)</td><td>Yes</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Common Use Cases</h2>
+    <p>
+      This tool is built for the moment you already have two lists of ratings — a spreadsheet
+      column of coder decisions, exported survey codes, or two graders' scores — and just want
+      a quick agreement check without manually tallying a confusion matrix first. It's a
+      convenient first pass before reporting a proper chance-corrected statistic in a methods
+      section.
+    </p>
+
+    <h2>Related Tools</h2>
+    <p>
+      For the full chance-corrected statistic with a confidence interval, use the
+      <a href="/#calculator">Cohen's Kappa Calculator</a>. Comparing three or more raters
+      instead of two? Use the <a href="/fleiss-kappa.html">Fleiss' Kappa Calculator</a>.
+    </p>
+  </article>
+
+  <div class="ad-slot ad-infeed" aria-hidden="false">
+    <div class="ad-inner">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2006445566626425"
+           data-ad-slot="XXXXXXXXXX" data-ad-format="fluid" data-ad-layout="in-article" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+  </div>
+
+  <article class="content" id="faq">
+    <h2>Frequently Asked Questions</h2>
+
+    <details class="faq">
+      <summary>What is percent agreement?</summary>
+      <p>It's the proportion of items where two raters gave the same rating, with no
+      adjustment for chance — the simplest reliability statistic, but one that can overstate
+      reliability when one category dominates.</p>
+    </details>
+
+    <details class="faq">
+      <summary>Why is percent agreement usually higher than Cohen's Kappa?</summary>
+      <p>Because it doesn't subtract out agreement you'd expect from chance. The more
+      unevenly your categories are used, the bigger the gap between the two numbers tends
+      to be.</p>
+    </details>
+
+    <details class="faq">
+      <summary>Is percent agreement good enough to report on its own?</summary>
+      <p>Most methodologists recommend pairing it with a chance-corrected statistic like
+      Cohen's Kappa or Fleiss' Kappa, rather than reporting percent agreement alone.</p>
+    </details>
+  </article>
+
+  <div class="ad-slot ad-rectangle" aria-hidden="false">
+    <div class="ad-inner">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2006445566626425"
+           data-ad-slot="XXXXXXXXXX" data-ad-format="rectangle" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div>
+      <a href="/about.html">About</a>
+      <a href="/privacy.html">Privacy Policy</a>
+      <a href="/contact.html">Contact</a>
+    </div>
+    <div>&copy; <span id="year"></span> Kappa Calc. All calculations run locally in your browser.</div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  var raterA = document.getElementById('raterA');
+  var raterB = document.getElementById('raterB');
+  var resultsBox = document.getElementById('results');
+  var pairTableWrap = document.getElementById('pairTableWrap');
+  var pairTable = document.getElementById('pairTable');
+
+  var EXAMPLE_A = 'Depressed, Depressed, Not Depressed, Depressed, Not Depressed, Not Depressed, Depressed, Not Depressed, Depressed, Not Depressed';
+  var EXAMPLE_B = 'Depressed, Not Depressed, Not Depressed, Depressed, Not Depressed, Not Depressed, Depressed, Depressed, Depressed, Not Depressed';
+
+  function parseList(text) {
+    return text
+      .split(/[\n,]+/)
+      .map(function (s) { return s.trim(); })
+      .filter(function (s) { return s.length > 0; });
+  }
+
+  function computeAll(listA, listB) {
+    if (listA.length === 0 || listB.length === 0) return { error: 'Enter scores for both raters.' };
+    if (listA.length !== listB.length) return { error: 'Rater A has ' + listA.length + ' items but Rater B has ' + listB.length + '. Lists must be the same length and in the same order.' };
+
+    var total = listA.length;
+    var matches = 0;
+    for (var i = 0; i < total; i++) if (listA[i] === listB[i]) matches++;
+    var percent = matches / total;
+
+    // build category list and confusion matrix for kappa
+    var categories = [];
+    function catIndex(v) {
+      var idx = categories.indexOf(v);
+      if (idx === -1) { categories.push(v); idx = categories.length - 1; }
+      return idx;
+    }
+    var k = 0;
+    listA.forEach(catIndex);
+    listB.forEach(catIndex);
+    k = categories.length;
+    var m = [];
+    for (var r = 0; r < k; r++) m.push(new Array(k).fill(0));
+    for (i = 0; i < total; i++) {
+      var ra = catIndex(listA[i]);
+      var rb = catIndex(listB[i]);
+      m[ra][rb]++;
+    }
+
+    var rowSums = new Array(k).fill(0), colSums = new Array(k).fill(0);
+    for (r = 0; r < k; r++) for (var c = 0; c < k; c++) { rowSums[r] += m[r][c]; colSums[c] += m[r][c]; }
+    var pe = 0;
+    for (var idx2 = 0; idx2 < k; idx2++) pe += (rowSums[idx2] * colSums[idx2]) / (total * total);
+    var kappa = pe === 1 ? 0 : (percent - pe) / (1 - pe);
+
+    return { total: total, matches: matches, percent: percent, kappa: kappa, listA: listA, listB: listB };
+  }
+
+  function interpret(k) {
+    if (k < 0) return 'Poor';
+    if (k <= 0.20) return 'Slight';
+    if (k <= 0.40) return 'Fair';
+    if (k <= 0.60) return 'Moderate';
+    if (k <= 0.80) return 'Substantial';
+    return 'Almost Perfect';
+  }
+
+  function renderPairTable(listA, listB) {
+    var html = '<thead><tr><th>#</th><th>Rater A</th><th>Rater B</th><th>Match?</th></tr></thead><tbody>';
+    for (var i = 0; i < listA.length; i++) {
+      var match = listA[i] === listB[i];
+      html += '<tr' + (match ? '' : ' style="background:#fbeee5;"') + '><td>' + (i + 1) + '</td><td>' + escapeHtml(listA[i]) + '</td><td>' + escapeHtml(listB[i]) + '</td><td>' + (match ? '✓' : '✗') + '</td></tr>';
+    }
+    html += '</tbody>';
+    pairTable.innerHTML = html;
+    pairTableWrap.style.display = 'block';
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  document.getElementById('computeBtn').addEventListener('click', function () {
+    var listA = parseList(raterA.value);
+    var listB = parseList(raterB.value);
+    var stats = computeAll(listA, listB);
+    if (stats.error) {
+      alert(stats.error);
+      return;
+    }
+    document.getElementById('stampKappa').textContent = (stats.percent * 100).toFixed(1) + '%';
+    document.getElementById('statMatches').textContent = stats.matches;
+    document.getElementById('statTotal').textContent = stats.total;
+    document.getElementById('statKappa').textContent = stats.kappa.toFixed(3);
+    document.getElementById('statInterp').textContent = interpret(stats.kappa) + ' agreement';
+    resultsBox.hidden = false;
+    renderPairTable(listA, listB);
+    resultsBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+
+  document.getElementById('loadExample').addEventListener('click', function () {
+    raterA.value = EXAMPLE_A;
+    raterB.value = EXAMPLE_B;
+  });
+
+  document.getElementById('resetInputs').addEventListener('click', function () {
+    raterA.value = '';
+    raterB.value = '';
+    resultsBox.hidden = true;
+    pairTableWrap.style.display = 'none';
+  });
+
+  raterA.value = EXAMPLE_A;
+  raterB.value = EXAMPLE_B;
+})();
+</script>
+</body>
+</html>

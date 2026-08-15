@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Fleiss' Kappa Calculator — Free Multi-Rater Reliability Tool (3+ Raters)</title>
+<meta name="description" content="Calculate Fleiss' Kappa instantly for 3 or more raters. Free multi-rater reliability calculator with per-item agreement, overall kappa, and Landis & Koch interpretation — runs entirely in your browser." />
+<meta name="keywords" content="fleiss kappa calculator, multi-rater reliability calculator, fleiss kappa online, inter-rater agreement 3 raters, fleiss kappa formula calculator" />
+<link rel="canonical" href="https://cohen-s-kappa.vercel.app/fleiss-kappa.html" />
+<meta name="robots" content="index, follow" />
+<meta name="google-site-verification" content="9bSXV0oYwCNz4T_QT4-FbvCW3bJShIEgX8HZMbep9Co" />
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Fleiss' Kappa Calculator — Free Multi-Rater Reliability Tool" />
+<meta property="og:description" content="Calculate Fleiss' Kappa for 3 or more raters instantly. Free, no signup, runs entirely in your browser." />
+<meta property="og:url" content="https://cohen-s-kappa.vercel.app/fleiss-kappa.html" />
+<meta property="og:site_name" content="Kappa Calc" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Fleiss' Kappa Calculator — Free Multi-Rater Reliability Tool" />
+<meta name="twitter:description" content="Free, instant Fleiss' Kappa calculator for 3+ raters with Landis & Koch interpretation. No signup, no server round-trip." />
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='16' fill='%232f6f5e'/%3E%3Ctext x='50' y='68' font-size='58' font-family='Georgia,serif' fill='%23eef1ec' text-anchor='middle'%3E%CE%BA%3C/text%3E%3C/svg%3E" />
+<link rel="stylesheet" href="styles.css" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2006445566626425" crossorigin="anonymous"></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Fleiss' Kappa Calculator",
+  "url": "https://cohen-s-kappa.vercel.app/fleiss-kappa.html",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any (browser-based)",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "A free browser-based calculator for Fleiss' Kappa multi-rater reliability, supporting 3 or more raters and 2 to 5 categories, with Landis & Koch interpretation."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the difference between Fleiss' Kappa and Cohen's Kappa?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Cohen's Kappa is defined for exactly two raters. Fleiss' Kappa generalizes the same chance-corrected agreement idea to any number of raters, and it doesn't require the same raters to have rated every item, only that each item receives the same total number of ratings."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do the same raters need to rate every item for Fleiss' Kappa?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Fleiss' Kappa only requires that each item is rated by the same number of raters overall, not that it's the same specific individuals each time, which makes it useful for crowd-rated or rotating-rater designs."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What sample size do I need for Fleiss' Kappa?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "There's no fixed rule, but as with Cohen's Kappa, estimates get unstable with very few items or heavily skewed category use. Aiming for at least 20 to 30 rated items with 3 or more raters each is a reasonable starting point for a stable estimate."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="wrap">
+    <a href="/" class="wordmark"><span class="kap">κ</span> Kappa Calc <small>INTER-RATER RELIABILITY</small></a>
+    <nav>
+      <a href="/#calculator">Cohen's Kappa</a>
+      <a href="/fleiss-kappa.html">Fleiss' Kappa</a>
+      <a href="/percent-agreement.html">Percent Agreement</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero wrap" id="calculator">
+    <p class="eyebrow">Free &middot; Client-side &middot; No sign-up</p>
+    <h1>Fleiss' Kappa Calculator</h1>
+    <p class="lede">
+      Enter how many raters assigned each item to each category, and get Fleiss' Kappa,
+      per-item agreement, overall observed and expected agreement, and a plain-English
+      reliability verdict — for any number of raters (3 or more), calculated instantly
+      in your browser.
+    </p>
+
+    <div class="calc-card">
+      <div class="calc-toolbar">
+        <span class="field-label">Items</span>
+        <select id="itemCount" class="select" aria-label="Number of items">
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5" selected>5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+        </select>
+        <span class="field-label">Categories</span>
+        <select id="catCount" class="select" aria-label="Number of categories">
+          <option value="2">2</option>
+          <option value="3" selected>3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+        <button type="button" id="loadExample" class="btn ghost">Load example data</button>
+        <button type="button" id="resetMatrix" class="btn ghost">Clear</button>
+      </div>
+
+      <div class="matrix-scroll">
+        <table class="matrix" id="matrixTable">
+          <caption>Each row is one item. Each column is a category. Cell values are the number of raters who assigned that item to that category — each row must sum to the same total number of raters.</caption>
+        </table>
+      </div>
+
+      <div class="calc-actions">
+        <button type="button" id="computeBtn" class="btn">Calculate Fleiss' Kappa</button>
+      </div>
+
+      <div class="results" id="results" hidden>
+        <div class="stamp" id="stamp">
+          <div class="stamp-kappa" id="stampKappa">0.00</div>
+          <div class="stamp-label" id="stampLabel">—</div>
+        </div>
+        <div>
+          <div class="stat-grid">
+            <div class="stat">
+              <div class="stat-label">Mean observed agreement (P̄)</div>
+              <div class="stat-value" id="statPo">—</div>
+            </div>
+            <div class="stat">
+              <div class="stat-label">Expected agreement (Pₑ)</div>
+              <div class="stat-value" id="statPe">—</div>
+            </div>
+            <div class="stat">
+              <div class="stat-label">Raters per item</div>
+              <div class="stat-value" id="statRaters">—</div>
+            </div>
+            <div class="stat">
+              <div class="stat-label">Items rated</div>
+              <div class="stat-value" id="statN">—</div>
+            </div>
+          </div>
+          <p class="calc-note" id="calcWarning"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ad-slot ad-leaderboard" aria-hidden="false">
+    <div class="ad-inner">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2006445566626425"
+           data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+  </div>
+
+  <article class="content" id="guide">
+    <h2>What Is Fleiss' Kappa?</h2>
+    <p>
+      Fleiss' Kappa (κ) extends the idea behind Cohen's Kappa — chance-corrected agreement
+      between raters — to situations with three or more raters. It was introduced by Joseph
+      Fleiss in 1971 and is the standard statistic when a panel of coders, judges, or reviewers
+      classifies the same set of items and you need one number summarizing how much they agree,
+      beyond what chance alone would produce. Unlike Cohen's Kappa, Fleiss' Kappa doesn't require
+      the same specific raters to rate every item — only that each item gets the same total
+      number of ratings, which makes it well suited to rotating panels or crowd-rated datasets.
+    </p>
+
+    <h2>The Formula</h2>
+    <p>
+      For N items rated by n raters each into k categories, Fleiss' Kappa is calculated from
+      the mean observed agreement across items and the expected agreement based on how often
+      each category is used overall:
+    </p>
+    <div class="formula">
+κ = (P̄ − Pₑ) / (1 − Pₑ)
+
+Pᵢ (per item) = [Σⱼ nᵢⱼ² − n] / [n(n − 1)]
+P̄ = mean of Pᵢ across all N items
+
+pⱼ = (Σᵢ nᵢⱼ) / (N × n)   — proportion of all ratings in category j
+Pₑ = Σⱼ pⱼ²
+    </div>
+    <p>
+      As with Cohen's Kappa, a value of 1 means perfect agreement, 0 means agreement no better
+      than chance, and negative values mean the raters agreed less than chance would predict.
+    </p>
+
+    <h2>How to Use This Calculator</h2>
+    <p>
+      Choose how many items you rated and how many categories your raters could choose from.
+      Fill in each row with how many raters assigned that item to each category — every row
+      should add up to the same total (your number of raters). Click
+      <code>Calculate Fleiss' Kappa</code> to get the overall kappa, mean observed agreement,
+      expected agreement, and a Landis &amp; Koch interpretation, all computed locally with
+      nothing sent to a server.
+    </p>
+
+    <h2>Interpreting Your Score</h2>
+    <p>The same Landis &amp; Koch (1977) benchmarks used for Cohen's Kappa apply here:</p>
+    <table class="ref">
+      <thead><tr><th>Kappa (κ)</th><th>Strength of agreement</th></tr></thead>
+      <tbody>
+        <tr><td>&lt; 0.00</td><td>Poor (worse than chance)</td></tr>
+        <tr><td>0.00 – 0.20</td><td>Slight</td></tr>
+        <tr><td>0.21 – 0.40</td><td>Fair</td></tr>
+        <tr><td>0.41 – 0.60</td><td>Moderate</td></tr>
+        <tr><td>0.61 – 0.80</td><td>Substantial</td></tr>
+        <tr><td>0.81 – 1.00</td><td>Almost perfect</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Common Use Cases</h2>
+    <p>
+      Fleiss' Kappa shows up wherever a panel — not just a pair — classifies the same items:
+      three or more clinicians independently grading the same medical images, a team of
+      annotators labeling training data for a machine-learning model, multiple content
+      moderators flagging the same posts, or a panel of judges scoring entries against a
+      rubric. Reporting Fleiss' Kappa alongside your methodology gives readers a single,
+      chance-corrected measure of how consistent your panel really was.
+    </p>
+
+    <h2>Related Tools</h2>
+    <p>
+      Only have two raters? Use the <a href="/#calculator">Cohen's Kappa Calculator</a> instead,
+      which reports a confidence interval alongside kappa. Want the simpler, uncorrected
+      agreement rate without building a matrix? Try the
+      <a href="/percent-agreement.html">Percent Agreement Calculator</a>, which lets you paste
+      two raters' scores directly.
+    </p>
+  </article>
+
+  <div class="ad-slot ad-infeed" aria-hidden="false">
+    <div class="ad-inner">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2006445566626425"
+           data-ad-slot="XXXXXXXXXX" data-ad-format="fluid" data-ad-layout="in-article" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+  </div>
+
+  <article class="content" id="faq">
+    <h2>Frequently Asked Questions</h2>
+
+    <details class="faq">
+      <summary>What is the difference between Fleiss' Kappa and Cohen's Kappa?</summary>
+      <p>Cohen's Kappa only works for exactly two raters. Fleiss' Kappa generalizes the same
+      chance-corrected idea to any number of raters, and doesn't require the same individuals
+      to rate every item — just the same total ratings per item.</p>
+    </details>
+
+    <details class="faq">
+      <summary>Do the same raters need to rate every item?</summary>
+      <p>No — Fleiss' Kappa only needs each item rated by the same number of raters overall,
+      not the same specific people each time, which is useful for rotating or crowd-rated
+      panels.</p>
+    </details>
+
+    <details class="faq">
+      <summary>What sample size do I need for Fleiss' Kappa?</summary>
+      <p>There's no strict minimum, but small samples or heavily skewed category use make the
+      estimate unstable. Aim for at least 20–30 rated items as a reasonable starting point.</p>
+    </details>
+  </article>
+
+  <div class="ad-slot ad-rectangle" aria-hidden="false">
+    <div class="ad-inner">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2006445566626425"
+           data-ad-slot="XXXXXXXXXX" data-ad-format="rectangle" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div>
+      <a href="/about.html">About</a>
+      <a href="/privacy.html">Privacy Policy</a>
+      <a href="/contact.html">Contact</a>
+    </div>
+    <div>&copy; <span id="year"></span> Kappa Calc. All calculations run locally in your browser.</div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  var itemSelect = document.getElementById('itemCount');
+  var catSelect = document.getElementById('catCount');
+  var table = document.getElementById('matrixTable');
+  var resultsBox = document.getElementById('results');
+
+  var EXAMPLE = {
+    items: 5, cats: 3,
+    data: [[4,0,0],[0,3,1],[1,2,1],[0,0,4],[2,2,0]]
+  };
+
+  function zeros(n, k) {
+    var out = [];
+    for (var i = 0; i < n; i++) out.push(new Array(k).fill(0));
+    return out;
+  }
+
+  function buildTable(n, k, prefillData) {
+    var data = prefillData || zeros(n, k);
+    var html = '<thead><tr><th class="corner">Item</th>';
+    for (var c = 0; c < k; c++) html += '<th>Category ' + (c + 1) + '</th>';
+    html += '<th>Row total</th></tr></thead><tbody>';
+    for (var r = 0; r < n; r++) {
+      html += '<tr><th class="row-head">Item ' + (r + 1) + '</th>';
+      for (var c2 = 0; c2 < k; c2++) {
+        html += '<td><input type="number" min="0" step="1" data-r="' + r + '" data-c="' + c2 + '" value="' + (data[r] && data[r][c2] != null ? data[r][c2] : 0) + '" aria-label="Item ' + (r+1) + ' category ' + (c2+1) + ' rater count"></td>';
+      }
+      html += '<td class="row-total" data-row-total="' + r + '">0</td></tr>';
+    }
+    html += '</tbody>';
+    table.innerHTML = html;
+    resultsBox.hidden = true;
+    attachRowTotalListeners();
+    updateRowTotals();
+  }
+
+  function attachRowTotalListeners() {
+    table.querySelectorAll('input[type="number"]').forEach(function (inp) {
+      inp.addEventListener('input', updateRowTotals);
+    });
+  }
+
+  function updateRowTotals() {
+    var n = parseInt(itemSelect.value, 10);
+    var k = parseInt(catSelect.value, 10);
+    for (var r = 0; r < n; r++) {
+      var sum = 0;
+      for (var c = 0; c < k; c++) {
+        var inp = table.querySelector('input[data-r="' + r + '"][data-c="' + c + '"]');
+        var v = inp ? parseFloat(inp.value) : 0;
+        sum += isNaN(v) ? 0 : v;
+      }
+      var cell = table.querySelector('[data-row-total="' + r + '"]');
+      if (cell) cell.textContent = sum;
+    }
+  }
+
+  function readMatrix() {
+    var n = parseInt(itemSelect.value, 10);
+    var k = parseInt(catSelect.value, 10);
+    var m = zeros(n, k);
+    table.querySelectorAll('input[type="number"]').forEach(function (inp) {
+      var r = parseInt(inp.getAttribute('data-r'), 10);
+      var c = parseInt(inp.getAttribute('data-c'), 10);
+      var v = parseFloat(inp.value);
+      m[r][c] = isNaN(v) || v < 0 ? 0 : v;
+    });
+    return m;
+  }
+
+  function computeFleiss(m) {
+    var N = m.length;
+    var k = m[0].length;
+    var rowSums = m.map(function (row) { return row.reduce(function (a, b) { return a + b; }, 0); });
+    var n = rowSums[0];
+    var consistent = rowSums.every(function (s) { return s === n; });
+    if (n < 2) return { error: 'Each item needs at least 2 raters.' };
+
+    var Pi = [];
+    for (var i = 0; i < N; i++) {
+      var sumSq = 0;
+      for (var j = 0; j < k; j++) sumSq += m[i][j] * m[i][j];
+      Pi.push((sumSq - n) / (n * (n - 1)));
+    }
+    var Pbar = Pi.reduce(function (a, b) { return a + b; }, 0) / N;
+
+    var colTotals = new Array(k).fill(0);
+    for (i = 0; i < N; i++) for (var j2 = 0; j2 < k; j2++) colTotals[j2] += m[i][j2];
+    var pj = colTotals.map(function (t) { return t / (N * n); });
+    var Pe = pj.reduce(function (sum, p) { return sum + p * p; }, 0);
+
+    var kappa = Pe === 1 ? 0 : (Pbar - Pe) / (1 - Pe);
+
+    return { N: N, n: n, Pbar: Pbar, Pe: Pe, kappa: kappa, consistent: consistent };
+  }
+
+  function interpret(k) {
+    if (k < 0) return 'Poor';
+    if (k <= 0.20) return 'Slight';
+    if (k <= 0.40) return 'Fair';
+    if (k <= 0.60) return 'Moderate';
+    if (k <= 0.80) return 'Substantial';
+    return 'Almost Perfect';
+  }
+
+  function render(stats) {
+    document.getElementById('statPo').textContent = (stats.Pbar * 100).toFixed(1) + '%';
+    document.getElementById('statPe').textContent = (stats.Pe * 100).toFixed(1) + '%';
+    document.getElementById('statRaters').textContent = stats.n;
+    document.getElementById('statN').textContent = stats.N;
+    document.getElementById('stampKappa').textContent = stats.kappa.toFixed(3);
+    document.getElementById('stampLabel').textContent = interpret(stats.kappa) + ' Agreement';
+    var warn = document.getElementById('calcWarning');
+    warn.textContent = stats.consistent
+      ? 'All items have the same number of raters — good.'
+      : 'Warning: rows do not all sum to the same total. Fleiss\' Kappa assumes a constant number of raters per item; results may be unreliable.';
+    resultsBox.hidden = false;
+    resultsBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  document.getElementById('computeBtn').addEventListener('click', function () {
+    var m = readMatrix();
+    var stats = computeFleiss(m);
+    if (stats.error) {
+      alert(stats.error);
+      return;
+    }
+    render(stats);
+  });
+
+  document.getElementById('loadExample').addEventListener('click', function () {
+    itemSelect.value = EXAMPLE.items;
+    catSelect.value = EXAMPLE.cats;
+    buildTable(EXAMPLE.items, EXAMPLE.cats, EXAMPLE.data);
+  });
+
+  document.getElementById('resetMatrix').addEventListener('click', function () {
+    buildTable(parseInt(itemSelect.value, 10), parseInt(catSelect.value, 10));
+  });
+
+  itemSelect.addEventListener('change', function () {
+    buildTable(parseInt(itemSelect.value, 10), parseInt(catSelect.value, 10));
+  });
+  catSelect.addEventListener('change', function () {
+    buildTable(parseInt(itemSelect.value, 10), parseInt(catSelect.value, 10));
+  });
+
+  buildTable(EXAMPLE.items, EXAMPLE.cats, EXAMPLE.data);
+})();
+</script>
+</body>
+</html>

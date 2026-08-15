@@ -17,18 +17,24 @@ exactly what this tool fills — a fast, free, focused answer to one specific qu
 ## What's in this repo
 
 ```
-index.html      → the calculator (hero tool + ~500 words of on-page SEO content + FAQ schema)
-about.html       → About page (trust signal for AdSense + users)
-privacy.html      → Privacy policy (required by AdSense; has [TO-DO] markers — fill in before launch)
-contact.html      → Contact page (has a [TO-DO] placeholder email — replace before launch)
-styles.css        → shared design system (no external CSS framework, no font requests)
-robots.txt         → allows crawling, points to sitemap
-sitemap.xml       → lists all 4 pages
-vercel.json        → clean URLs + cache headers for static hosting
+index.html               → Cohen's Kappa Calculator (2 raters, ~500 words SEO content + FAQ schema)
+fleiss-kappa.html          → Fleiss' Kappa Calculator (3+ raters)
+percent-agreement.html      → Percent Agreement Calculator (paste two rater lists, no matrix needed)
+about.html                 → About page (trust signal for AdSense + users)
+privacy.html                → Privacy policy (required by AdSense; noindexed on purpose)
+contact.html                → Contact page
+styles.css                  → shared design system (no external CSS framework, no font requests)
+ads.txt                     → AdSense publisher authorization file
+robots.txt                   → allows crawling, points to sitemap
+sitemap.xml                 → lists all 6 pages
+vercel.json                  → clean URLs + cache headers for static hosting
 ```
 
-No build step, no `package.json`, no database, no API keys. Everything is static
-HTML/CSS/vanilla JS.
+All three calculators are cross-linked in their nav bar and in a "Related Tools" section at
+the bottom of each guide — this is a small SEO content cluster: three tools that each target a
+different long-tail keyword (Cohen's Kappa, Fleiss' Kappa, percent agreement) and pass authority
+to each other via internal links, which tends to help all three rank faster than one isolated
+page would.
 
 ## Before you deploy — required edits
 
@@ -106,10 +112,12 @@ violation of Google's spam policies and can trigger a manual action that tanks r
 site-wide — the opposite of the goal. Real, visible, useful content targeting the same
 keywords achieves the SEO goal without that risk.
 
-## Extending this into a small cluster (optional, for faster growth)
+## Extending the cluster further (optional)
 
-A single tool page can rank, but a small cluster of 3–5 adjacent tools
-(e.g. Fleiss' Kappa for 3+ raters, Krippendorff's Alpha, a plain percent-agreement
-calculator) cross-linked from this page compounds authority faster than one isolated
-page. The `styles.css` file here is already structured to be reused across new pages if
-you go that route.
+Three tools are already live and cross-linked. If you want to keep compounding authority,
+good next additions in the same niche are a Krippendorff's Alpha calculator (handles missing
+data and ordinal/interval scales, a common ask from content-analysis researchers) or an
+Intraclass Correlation Coefficient (ICC) calculator for continuous ratings rather than
+categorical ones. Follow the same pattern: copy `styles.css`, reuse the nav/footer markup,
+add the new page to `sitemap.xml`, and link it from the "Related Tools" section on the
+existing three pages.
