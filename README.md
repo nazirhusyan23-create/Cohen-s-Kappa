@@ -20,21 +20,25 @@ exactly what this tool fills — a fast, free, focused answer to one specific qu
 index.html               → Cohen's Kappa Calculator (2 raters, ~500 words SEO content + FAQ schema)
 fleiss-kappa.html          → Fleiss' Kappa Calculator (3+ raters)
 percent-agreement.html      → Percent Agreement Calculator (paste two rater lists, no matrix needed)
-about.html                 → About page (trust signal for AdSense + users)
-privacy.html                → Privacy policy (required by AdSense; noindexed on purpose)
-contact.html                → Contact page
-styles.css                  → shared design system (no external CSS framework, no font requests)
-ads.txt                     → AdSense publisher authorization file
-robots.txt                   → allows crawling, points to sitemap
-sitemap.xml                 → lists all 6 pages
-vercel.json                  → clean URLs + cache headers for static hosting
+compare.html                → Decision guide: which statistic fits your data (links all 3 tools)
+about.html                   → About page (trust signal for AdSense + users)
+privacy.html                  → Privacy policy (required by AdSense; noindexed on purpose)
+contact.html                  → Contact page
+styles.css                    → shared design system (no external CSS framework, no font requests)
+ads.txt                       → AdSense publisher authorization file
+robots.txt                     → allows crawling, points to sitemap
+sitemap.xml                   → lists all 7 pages
+vercel.json                    → clean URLs + cache headers for static hosting
 ```
 
-All three calculators are cross-linked in their nav bar and in a "Related Tools" section at
-the bottom of each guide — this is a small SEO content cluster: three tools that each target a
-different long-tail keyword (Cohen's Kappa, Fleiss' Kappa, percent agreement) and pass authority
-to each other via internal links, which tends to help all three rank faster than one isolated
-page would.
+All four content pages (Cohen's Kappa, Fleiss' Kappa, Percent Agreement, and the comparison
+guide) are cross-linked via nav bar and "Related Tools" sections — a small SEO content
+cluster: each targets a different long-tail keyword and passes authority to the others via
+internal links, which tends to help all four rank faster than one isolated page would.
+
+Each calculator also includes a **citation box** with an APA-style citation and a
+one-click copy button — a small trust/credibility signal aimed at the academic audience,
+who are more likely to link back to a tool they can cite properly in a methods section.
 
 ## Before you deploy — required edits
 

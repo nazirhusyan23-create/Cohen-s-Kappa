@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Cohen's Kappa vs Fleiss' Kappa vs Percent Agreement — Which Should You Use?</title>
+<meta name="description" content="A quick decision guide to choosing between Cohen's Kappa, Fleiss' Kappa, and percent agreement for measuring inter-rater reliability, with a comparison table and free calculators for each." />
+<meta name="keywords" content="cohen's kappa vs fleiss kappa, which inter-rater reliability statistic, percent agreement vs kappa, how to choose reliability statistic, inter-rater reliability guide" />
+<link rel="canonical" href="https://cohen-s-kappa.vercel.app/compare.html" />
+<meta name="robots" content="index, follow" />
+<meta name="google-site-verification" content="9bSXV0oYwCNz4T_QT4-FbvCW3bJShIEgX8HZMbep9Co" />
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Cohen's Kappa vs Fleiss' Kappa vs Percent Agreement — Which Should You Use?" />
+<meta property="og:description" content="A quick decision guide to choosing the right inter-rater reliability statistic, with a comparison table and free calculators for each." />
+<meta property="og:url" content="https://cohen-s-kappa.vercel.app/compare.html" />
+<meta property="og:site_name" content="Kappa Calc" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Cohen's Kappa vs Fleiss' Kappa vs Percent Agreement" />
+<meta name="twitter:description" content="A quick decision guide to choosing the right inter-rater reliability statistic, with free calculators for each." />
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='16' fill='%232f6f5e'/%3E%3Ctext x='50' y='68' font-size='58' font-family='Georgia,serif' fill='%23eef1ec' text-anchor='middle'%3E%CE%BA%3C/text%3E%3C/svg%3E" />
+<link rel="stylesheet" href="styles.css" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2006445566626425" crossorigin="anonymous"></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Should I use Cohen's Kappa or Fleiss' Kappa?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use Cohen's Kappa if you have exactly two raters who each rated every item. Use Fleiss' Kappa if you have three or more raters, especially if different subsets of raters rated different items."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should I report percent agreement or kappa?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Most methodologists recommend reporting both. Percent agreement is intuitive but can be inflated when one category dominates the data. Kappa corrects for that chance component, so pairing the two numbers gives readers a fuller picture than either alone."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if my raters gave numeric or ordinal scores instead of categories?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Kappa statistics are built for categorical (nominal) ratings. For continuous or ordinal scores, an Intraclass Correlation Coefficient (ICC) or a weighted kappa that accounts for the size of disagreement is usually more appropriate."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="wrap">
+    <a href="/" class="wordmark"><span class="kap">κ</span> Kappa Calc <small>INTER-RATER RELIABILITY</small></a>
+    <nav>
+      <a href="/#calculator">Cohen's Kappa</a>
+      <a href="/fleiss-kappa.html">Fleiss' Kappa</a>
+      <a href="/percent-agreement.html">Percent Agreement</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero wrap">
+    <p class="eyebrow">Decision guide</p>
+    <h1>Cohen's Kappa vs Fleiss' Kappa vs Percent Agreement</h1>
+    <p class="lede">
+      Three ways to measure how much your raters agree, and three different situations they're
+      each built for. This page walks through which one fits your data in under a minute, with
+      a free calculator for each.
+    </p>
+  </section>
+
+  <article class="content" id="guide" style="margin-top: -10px;">
+    <h2>Quick answer: pick by number of raters first</h2>
+    <p>
+      The single biggest factor is how many raters you have. Everything else is a refinement
+      on top of that first decision.
+    </p>
+    <table class="ref">
+      <thead>
+        <tr><th>Your situation</th><th>Use this</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Exactly 2 raters, same raters rated every item</td>
+          <td><a href="/#calculator">Cohen's Kappa Calculator</a></td>
+        </tr>
+        <tr>
+          <td>3 or more raters (same or rotating panel)</td>
+          <td><a href="/fleiss-kappa.html">Fleiss' Kappa Calculator</a></td>
+        </tr>
+        <tr>
+          <td>You just want the raw match rate, no chance-correction, or you're comparing raw score lists directly</td>
+          <td><a href="/percent-agreement.html">Percent Agreement Calculator</a></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>How the three statistics differ</h2>
+    <table class="ref">
+      <thead>
+        <tr><th>Statistic</th><th>Raters</th><th>Corrects for chance?</th><th>Best for</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Percent agreement</td>
+          <td>2 or more</td>
+          <td>No</td>
+          <td>A quick, intuitive first check; reporting alongside a chance-corrected statistic</td>
+        </tr>
+        <tr>
+          <td>Cohen's Kappa</td>
+          <td>Exactly 2</td>
+          <td>Yes</td>
+          <td>The standard for two fixed raters; supports a confidence interval</td>
+        </tr>
+        <tr>
+          <td>Fleiss' Kappa</td>
+          <td>3 or more</td>
+          <td>Yes</td>
+          <td>Panels, crowd-rated data, or rotating raters where the total raters per item stays constant</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Why not just always use percent agreement?</h2>
+    <p>
+      Percent agreement is the easiest number to compute and explain, but it can badly
+      overstate reliability. If 90% of your items belong to one category, two raters could
+      hit 90% agreement by both defaulting to that category most of the time — without
+      actually agreeing on the harder, less common cases. Cohen's Kappa and Fleiss' Kappa
+      both subtract out that chance component, which is why journals in psychology,
+      medicine, and content analysis typically expect a kappa statistic rather than percent
+      agreement alone.
+    </p>
+
+    <h2>Why not just always use kappa?</h2>
+    <p>
+      Kappa has its own well-documented quirk, sometimes called the kappa paradox: when one
+      category is very rare, kappa can come out low even though raters agree almost all the
+      time on the cases that matter. This is exactly why reporting both percent agreement and
+      kappa side by side — which the <a href="/percent-agreement.html">Percent Agreement
+      Calculator</a> does automatically — gives a fuller picture than either number alone.
+    </p>
+
+    <h2>What if I have more than one rating type per item?</h2>
+    <p>
+      All three tools here assume categorical (nominal) ratings — labels like "present/absent"
+      or "low/medium/high," not continuous scores. If your raters gave numeric scores on a
+      continuous or ordinal scale (like a 1–10 severity rating), an Intraclass Correlation
+      Coefficient (ICC) or a weighted kappa is usually the more appropriate statistic, since it
+      accounts for how far apart two ratings are, not just whether they matched exactly.
+    </p>
+
+    <h2>Frequently Asked Questions</h2>
+
+    <details class="faq">
+      <summary>Should I use Cohen's Kappa or Fleiss' Kappa?</summary>
+      <p>Use Cohen's Kappa for exactly two raters who each rated every item. Use Fleiss' Kappa
+      for three or more raters, especially if different subsets of raters rated different
+      items.</p>
+    </details>
+
+    <details class="faq">
+      <summary>Should I report percent agreement or kappa?</summary>
+      <p>Most methodologists recommend reporting both — percent agreement for intuition, kappa
+      for the chance-corrected number reviewers actually expect.</p>
+    </details>
+
+    <details class="faq">
+      <summary>What if my raters gave numeric or ordinal scores instead of categories?</summary>
+      <p>Kappa statistics are built for categorical ratings. For continuous or ordinal scores,
+      an Intraclass Correlation Coefficient (ICC) or a weighted kappa is usually more
+      appropriate.</p>
+    </details>
+  </article>
+
+  <div class="ad-slot ad-rectangle" aria-hidden="false">
+    <div class="ad-inner">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2006445566626425"
+           data-ad-slot="XXXXXXXXXX" data-ad-format="rectangle" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div>
+      <a href="/about.html">About</a>
+      <a href="/privacy.html">Privacy Policy</a>
+      <a href="/contact.html">Contact</a>
+    </div>
+    <div>&copy; <span id="year"></span> Kappa Calc. All calculations run locally in your browser.</div>
+  </div>
+</footer>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

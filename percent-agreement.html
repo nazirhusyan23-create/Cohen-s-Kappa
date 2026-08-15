@@ -142,6 +142,11 @@
             </div>
           </div>
           <p class="calc-note">Cohen's Kappa here corrects for chance agreement based on how often each category appears in your data. Want the full confidence interval? Use the <a href="/#calculator">Cohen's Kappa Calculator</a>.</p>
+          <div class="cite-box">
+            <div class="cite-label">Cite this calculator</div>
+            <p class="cite-text" id="citeText">Kappa Calc. (2026). <em>Percent Agreement Calculator</em> [Computer software]. https://cohen-s-kappa.vercel.app/percent-agreement.html</p>
+            <button type="button" id="copyCite" class="btn ghost">Copy citation</button>
+          </div>
         </div>
       </div>
 
@@ -211,6 +216,7 @@
       For the full chance-corrected statistic with a confidence interval, use the
       <a href="/#calculator">Cohen's Kappa Calculator</a>. Comparing three or more raters
       instead of two? Use the <a href="/fleiss-kappa.html">Fleiss' Kappa Calculator</a>.
+      Not sure which fits your data? See the <a href="/compare.html">comparison guide</a>.
     </p>
   </article>
 
@@ -376,6 +382,17 @@
     resultsBox.hidden = true;
     pairTableWrap.style.display = 'none';
   });
+
+  var copyCiteBtn = document.getElementById('copyCite');
+  if (copyCiteBtn) {
+    copyCiteBtn.addEventListener('click', function () {
+      var text = document.getElementById('citeText').textContent;
+      navigator.clipboard.writeText(text).then(function () {
+        copyCiteBtn.textContent = 'Copied!';
+        setTimeout(function () { copyCiteBtn.textContent = 'Copy citation'; }, 1800);
+      });
+    });
+  }
 
   raterA.value = EXAMPLE_A;
   raterB.value = EXAMPLE_B;

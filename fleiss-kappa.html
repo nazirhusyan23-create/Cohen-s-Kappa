@@ -149,6 +149,11 @@
             </div>
           </div>
           <p class="calc-note" id="calcWarning"></p>
+          <div class="cite-box">
+            <div class="cite-label">Cite this calculator</div>
+            <p class="cite-text" id="citeText">Kappa Calc. (2026). <em>Fleiss' Kappa Calculator</em> [Computer software]. https://cohen-s-kappa.vercel.app/fleiss-kappa.html</p>
+            <button type="button" id="copyCite" class="btn ghost">Copy citation</button>
+          </div>
         </div>
       </div>
     </div>
@@ -236,6 +241,7 @@ Pₑ = Σⱼ pⱼ²
       <a href="/percent-agreement.html">Percent Agreement Calculator</a>, which lets you paste
       two raters' scores directly.
     </p>
+    <p>Not sure which statistic fits your data? See the <a href="/compare.html">comparison guide</a>.</p>
   </article>
 
   <div class="ad-slot ad-infeed" aria-hidden="false">
@@ -439,6 +445,17 @@ Pₑ = Σⱼ pⱼ²
   catSelect.addEventListener('change', function () {
     buildTable(parseInt(itemSelect.value, 10), parseInt(catSelect.value, 10));
   });
+
+  var copyCiteBtn = document.getElementById('copyCite');
+  if (copyCiteBtn) {
+    copyCiteBtn.addEventListener('click', function () {
+      var text = document.getElementById('citeText').textContent;
+      navigator.clipboard.writeText(text).then(function () {
+        copyCiteBtn.textContent = 'Copied!';
+        setTimeout(function () { copyCiteBtn.textContent = 'Copy citation'; }, 1800);
+      });
+    });
+  }
 
   buildTable(EXAMPLE.items, EXAMPLE.cats, EXAMPLE.data);
 })();

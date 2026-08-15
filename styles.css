@@ -316,6 +316,34 @@ table.matrix input[type="text"]:focus {
   margin-top: 14px;
 }
 
+.cite-box {
+  margin-top: 18px;
+  padding: 14px 16px;
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius);
+}
+.cite-box .cite-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-faint);
+  margin-bottom: 8px;
+}
+.cite-box .cite-text {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+  line-height: 1.5;
+  margin: 0 0 10px;
+}
+.cite-box .btn.ghost {
+  font-size: 0.78rem;
+  padding: 6px 12px;
+}
+
 /* ---------- Ad slots ---------- */
 .ad-slot {
   max-width: var(--max-w);

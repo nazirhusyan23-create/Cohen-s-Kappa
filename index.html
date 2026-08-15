@@ -163,6 +163,11 @@
             </div>
           </div>
           <p class="calc-note">Standard error uses the large-sample approximation (Fleiss, Cohen & Everitt, 1969). Treat the confidence interval as approximate for small samples (N &lt; 30).</p>
+          <div class="cite-box">
+            <div class="cite-label">Cite this calculator</div>
+            <p class="cite-text" id="citeText">Kappa Calc. (2026). <em>Cohen's Kappa Calculator</em> [Computer software]. https://cohen-s-kappa.vercel.app/</p>
+            <button type="button" id="copyCite" class="btn ghost">Copy citation</button>
+          </div>
         </div>
       </div>
     </div>
@@ -262,7 +267,8 @@ pₑ = expected agreement = Σ (row total × column total) / (total items)²
       chance-correction to any number of raters. Just want the simple, uncorrected agreement
       rate without building a matrix by hand? Try the
       <a href="/percent-agreement.html">Percent Agreement Calculator</a>, which lets you paste
-      two raters' scores directly and computes Cohen's Kappa automatically as a bonus.
+      two raters' scores directly and computes Cohen's Kappa automatically as a bonus. Not sure
+      which one fits your data? See the <a href="/compare.html">comparison guide</a>.
     </p>
   </article>
 
@@ -474,6 +480,17 @@ pₑ = expected agreement = Σ (row total × column total) / (total items)²
   sizeSelect.addEventListener('change', function () {
     buildTable(parseInt(sizeSelect.value, 10));
   });
+
+  var copyCiteBtn = document.getElementById('copyCite');
+  if (copyCiteBtn) {
+    copyCiteBtn.addEventListener('click', function () {
+      var text = document.getElementById('citeText').textContent;
+      navigator.clipboard.writeText(text).then(function () {
+        copyCiteBtn.textContent = 'Copied!';
+        setTimeout(function () { copyCiteBtn.textContent = 'Copy citation'; }, 1800);
+      });
+    });
+  }
 
   // init
   buildTable(3, EXAMPLES[3]);
