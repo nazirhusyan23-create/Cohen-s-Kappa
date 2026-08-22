@@ -6,9 +6,36 @@
 <title>About Kappa Calc — Free Inter-Rater Reliability Calculator</title>
 <meta name="description" content="Kappa Calc is a free, browser-based Cohen's Kappa calculator built for researchers, students, and coders who need a quick, accurate inter-rater reliability score." />
 <link rel="canonical" href="https://cohen-s-kappa.vercel.app/about.html" />
+<meta name="robots" content="index, follow" />
 <meta name="google-site-verification" content="9bSXV0oYwCNz4T_QT4-FbvCW3bJShIEgX8HZMbep9Co" />
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content="About Kappa Calc — Free Inter-Rater Reliability Calculator" />
+<meta property="og:description" content="Kappa Calc is a free, browser-based Cohen's Kappa calculator built for researchers, students, and coders who need a quick, accurate inter-rater reliability score." />
+<meta property="og:url" content="https://cohen-s-kappa.vercel.app/about.html" />
+<meta property="og:site_name" content="Kappa Calc" />
+<meta property="og:image" content="https://cohen-s-kappa.vercel.app/og-image.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="About Kappa Calc" />
+<meta name="twitter:description" content="A free, browser-based inter-rater reliability toolkit built for researchers, students, and annotators." />
+<meta name="twitter:image" content="https://cohen-s-kappa.vercel.app/og-image.png" />
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='16' fill='%232f6f5e'/%3E%3Ctext x='50' y='68' font-size='58' font-family='Georgia,serif' fill='%23eef1ec' text-anchor='middle'%3E%CE%BA%3C/text%3E%3C/svg%3E" />
 <link rel="stylesheet" href="styles.css" />
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2006445566626425" crossorigin="anonymous"></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://cohen-s-kappa.vercel.app/" },
+    { "@type": "ListItem", "position": 2, "name": "About", "item": "https://cohen-s-kappa.vercel.app/about.html" }
+  ]
+}
+</script>
 </head>
 <body>
 <header class="site-nav">
@@ -43,13 +70,52 @@
   <p>
     Calculations follow Cohen's original 1960 formulation of kappa, with the standard error
     computed using the large-sample approximation described by Fleiss, Cohen &amp; Everitt
-    (1969). Interpretation bands follow Landis &amp; Koch (1977). See the
-    <a href="/#guide">calculator guide</a> for the full formulas.
+    (1969). Interpretation bands follow Landis &amp; Koch (1977). Fleiss' Kappa follows Fleiss'
+    1971 generalization to three or more raters. See the <a href="/#guide">calculator guide</a>
+    for the full formulas and a worked example.
   </p>
+
+  <h2>What this toolkit includes</h2>
+  <p>
+    Three focused calculators cover the situations researchers run into most often:
+    <a href="/#calculator">Cohen's Kappa</a> for exactly two raters, <a href="/fleiss-kappa.html">Fleiss'
+    Kappa</a> for three or more raters, and <a href="/percent-agreement.html">Percent Agreement</a>
+    for a quick, uncorrected match rate you can paste in without building a matrix. The
+    <a href="/compare.html">comparison guide</a> walks through which one fits a given dataset in
+    under a minute.
+  </p>
+
+  <h2>Limitations</h2>
+  <p>
+    This is a calculation aid, not a substitute for statistical training or peer review. It
+    assumes categorical (nominal) ratings — for ordinal or continuous scores, a weighted kappa
+    or an Intraclass Correlation Coefficient (ICC) is usually more appropriate. Standard errors
+    and confidence intervals use large-sample approximations, which are less reliable for very
+    small datasets. Always report your methodology and interpret results in the context of your
+    field's conventions, and consult a statistician for high-stakes or publication-critical
+    analyses.
+  </p>
+
+  <h2>Frequently Asked Questions</h2>
+  <details class="faq">
+    <summary>Is this calculator free to use?</summary>
+    <p>Yes, all three calculators are free, with no account, signup, or usage limit.</p>
+  </details>
+  <details class="faq">
+    <summary>Is my data ever uploaded or stored?</summary>
+    <p>No. Every calculation runs in JavaScript inside your browser. Nothing you type into a
+    matrix or text box is sent to a server, logged, or stored — see the
+    <a href="/privacy.html">privacy policy</a> for details.</p>
+  </details>
+  <details class="faq">
+    <summary>Who maintains this site?</summary>
+    <p>Kappa Calc is an independently maintained utility site. Questions, corrections, or bug
+    reports are welcome via the <a href="/contact.html">contact page</a>.</p>
+  </details>
 </main>
 <footer class="site-footer">
   <div class="wrap">
-    <div><a href="/about.html">About</a><a href="/privacy.html">Privacy Policy</a><a href="/contact.html">Contact</a></div>
+    <div><a href="/about.html">About</a><a href="/privacy.html">Privacy Policy</a><a href="/terms.html">Terms of Use</a><a href="/contact.html">Contact</a></div>
     <div>&copy; <span id="year"></span> Kappa Calc.</div>
   </div>
 </footer>

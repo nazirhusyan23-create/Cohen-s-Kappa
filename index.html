@@ -16,9 +16,13 @@
 <meta property="og:description" content="Paste in your confusion matrix and get Cohen's Kappa, standard error, 95% confidence interval, and a plain-English reliability verdict — instantly, in your browser." />
 <meta property="og:url" content="https://cohen-s-kappa.vercel.app/" />
 <meta property="og:site_name" content="Kappa Calc" />
-<meta name="twitter:card" content="summary" />
+<meta property="og:image" content="https://cohen-s-kappa.vercel.app/og-image.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Cohen's Kappa Calculator — Free Inter-Rater Reliability Tool" />
 <meta name="twitter:description" content="Free, instant Cohen's Kappa calculator with confidence intervals and Landis & Koch interpretation. No signup, no server round-trip." />
+<meta name="twitter:image" content="https://cohen-s-kappa.vercel.app/og-image.png" />
 
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='16' fill='%232f6f5e'/%3E%3Ctext x='50' y='68' font-size='58' font-family='Georgia,serif' fill='%23eef1ec' text-anchor='middle'%3Eκ%3C/text%3E%3C/svg%3E" />
 <link rel="stylesheet" href="styles.css" />
@@ -260,6 +264,43 @@ pₑ = expected agreement = Σ (row total × column total) / (total items)²
       see both numbers and judge the gap for themselves.
     </p>
 
+    <h2>Worked Example</h2>
+    <p>
+      Say two radiologists each review the same 60 scans and classify each one as
+      <code>Normal</code>, <code>Benign</code>, or <code>Malignant</code>. Their confusion matrix
+      comes out to: 20 scans where both said Normal, 3 where Rater A said Normal but Rater B said
+      Benign, and so on, filling in the full 3×3 grid until all 60 scans are accounted for.
+    </p>
+    <p>
+      Summing the diagonal (where both raters agree) gives an observed agreement p₀ of, say,
+      45/60 = 0.750. Next, the row and column totals for each category are multiplied and divided
+      by the square of the total to get the expected agreement by chance, pₑ — suppose that comes
+      out to 0.420. Plugging into the formula:
+    </p>
+    <div class="formula">
+κ = (0.750 − 0.420) / (1 − 0.420) = 0.330 / 0.580 ≈ 0.569
+    </div>
+    <p>
+      A kappa of 0.569 falls in the "Moderate" band under Landis &amp; Koch — noticeably lower
+      than the raw 75% agreement, because a fair amount of that 75% would have happened even if
+      the two radiologists were guessing based only on how common each diagnosis is in this
+      sample. This is the gap kappa exists to reveal. Try this scenario yourself with
+      <code>Load example data</code> above.
+    </p>
+
+    <h2>Common Mistakes When Reporting Kappa</h2>
+    <p>
+      A few errors show up repeatedly in methods sections and student write-ups: treating percent
+      agreement and kappa as interchangeable (they answer different questions and can diverge
+      sharply); applying the Landis &amp; Koch bands as a strict pass/fail rule rather than a
+      rough guide, when different fields expect different thresholds; computing kappa on a very
+      small or heavily skewed sample and reporting it without a confidence interval, which hides
+      how unstable the estimate really is; and using Cohen's Kappa when there are actually three
+      or more raters, where <a href="/fleiss-kappa.html">Fleiss' Kappa</a> is the correct
+      statistic instead. Reporting p₀, pₑ, kappa, and the confidence interval together — as this
+      calculator does — avoids most of these pitfalls in one step.
+    </p>
+
     <h2>Related Tools</h2>
     <p>
       Working with three or more raters instead of two? Use the
@@ -334,6 +375,7 @@ pₑ = expected agreement = Σ (row total × column total) / (total items)²
     <div>
       <a href="/about.html">About</a>
       <a href="/privacy.html">Privacy Policy</a>
+      <a href="/terms.html">Terms of Use</a>
       <a href="/contact.html">Contact</a>
     </div>
     <div>&copy; <span id="year"></span> Kappa Calc. All calculations run locally in your browser.</div>

@@ -15,9 +15,13 @@
 <meta property="og:description" content="Calculate Fleiss' Kappa for 3 or more raters instantly. Free, no signup, runs entirely in your browser." />
 <meta property="og:url" content="https://cohen-s-kappa.vercel.app/fleiss-kappa.html" />
 <meta property="og:site_name" content="Kappa Calc" />
-<meta name="twitter:card" content="summary" />
+<meta property="og:image" content="https://cohen-s-kappa.vercel.app/og-image.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Fleiss' Kappa Calculator — Free Multi-Rater Reliability Tool" />
 <meta name="twitter:description" content="Free, instant Fleiss' Kappa calculator for 3+ raters with Landis & Koch interpretation. No signup, no server round-trip." />
+<meta name="twitter:image" content="https://cohen-s-kappa.vercel.app/og-image.png" />
 
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='16' fill='%232f6f5e'/%3E%3Ctext x='50' y='68' font-size='58' font-family='Georgia,serif' fill='%23eef1ec' text-anchor='middle'%3E%CE%BA%3C/text%3E%3C/svg%3E" />
 <link rel="stylesheet" href="styles.css" />
@@ -64,6 +68,16 @@
         "text": "There's no fixed rule, but as with Cohen's Kappa, estimates get unstable with very few items or heavily skewed category use. Aiming for at least 20 to 30 rated items with 3 or more raters each is a reasonable starting point for a stable estimate."
       }
     }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://cohen-s-kappa.vercel.app/" },
+    { "@type": "ListItem", "position": 2, "name": "Fleiss' Kappa Calculator", "item": "https://cohen-s-kappa.vercel.app/fleiss-kappa.html" }
   ]
 }
 </script>
@@ -233,6 +247,33 @@ Pₑ = Σⱼ pⱼ²
       chance-corrected measure of how consistent your panel really was.
     </p>
 
+    <h2>Worked Example</h2>
+    <p>
+      Suppose 4 content moderators each review the same 5 posts and mark each as
+      <code>Keep</code>, <code>Review</code>, or <code>Remove</code>. For Post 1, all 4 moderators
+      agree on <code>Keep</code> — a perfect match. For Post 3, 2 moderators say <code>Review</code>
+      and 2 say <code>Remove</code> — a clear split. Once every post's rater counts per category
+      are tallied (each row summing to 4, the number of raters), the calculator computes the
+      per-item agreement Pᵢ for every post, averages them into P̄, subtracts the expected
+      agreement Pₑ (based on how often each category was used overall), and divides by
+      1 − Pₑ to get the overall Fleiss' Kappa. A dataset like this one typically lands
+      somewhere in the "Moderate" to "Substantial" range — try
+      <code>Load example data</code> above to see the exact numbers.
+    </p>
+
+    <h2>Common Mistakes</h2>
+    <p>
+      The most frequent error is letting the number of raters per item vary — Fleiss' Kappa
+      assumes every item received the same total number of ratings, and the calculator's
+      warning banner flags rows that don't match. Other common issues: using Fleiss' Kappa when
+      there are actually only two fixed raters (use <a href="/#calculator">Cohen's Kappa</a>
+      instead, since it also reports a confidence interval); forgetting that a low kappa can
+      still mean high raw agreement if one category dominates (the "kappa paradox" — check
+      percent agreement alongside it); and quoting Fleiss' Kappa for ordinal or numeric ratings,
+      where a weighted kappa or ICC is more appropriate since it accounts for how far apart two
+      scores are, not just whether they matched exactly.
+    </p>
+
     <h2>Related Tools</h2>
     <p>
       Only have two raters? Use the <a href="/#calculator">Cohen's Kappa Calculator</a> instead,
@@ -290,6 +331,7 @@ Pₑ = Σⱼ pⱼ²
     <div>
       <a href="/about.html">About</a>
       <a href="/privacy.html">Privacy Policy</a>
+      <a href="/terms.html">Terms of Use</a>
       <a href="/contact.html">Contact</a>
     </div>
     <div>&copy; <span id="year"></span> Kappa Calc. All calculations run locally in your browser.</div>

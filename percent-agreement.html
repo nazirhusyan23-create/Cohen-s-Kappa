@@ -15,9 +15,13 @@
 <meta property="og:description" content="Paste in two raters' scores and get percent agreement, mismatch highlighting, and an automatic Cohen's Kappa — instantly, in your browser." />
 <meta property="og:url" content="https://cohen-s-kappa.vercel.app/percent-agreement.html" />
 <meta property="og:site_name" content="Kappa Calc" />
-<meta name="twitter:card" content="summary" />
+<meta property="og:image" content="https://cohen-s-kappa.vercel.app/og-image.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Percent Agreement Calculator — Paste Two Raters' Scores" />
 <meta name="twitter:description" content="Free percent agreement calculator. No matrix to build — just paste your two raters' scores. No signup, no server round-trip." />
+<meta name="twitter:image" content="https://cohen-s-kappa.vercel.app/og-image.png" />
 
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='16' fill='%232f6f5e'/%3E%3Ctext x='50' y='68' font-size='58' font-family='Georgia,serif' fill='%23eef1ec' text-anchor='middle'%3E%CE%BA%3C/text%3E%3C/svg%3E" />
 <link rel="stylesheet" href="styles.css" />
@@ -64,6 +68,16 @@
         "text": "Most methodologists recommend reporting a chance-corrected statistic like Cohen's Kappa or Fleiss' Kappa alongside percent agreement, rather than percent agreement alone, since a high percentage can be misleading if one category dominates the data."
       }
     }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://cohen-s-kappa.vercel.app/" },
+    { "@type": "ListItem", "position": 2, "name": "Percent Agreement Calculator", "item": "https://cohen-s-kappa.vercel.app/percent-agreement.html" }
   ]
 }
 </script>
@@ -211,6 +225,30 @@
       section.
     </p>
 
+    <h2>Worked Example</h2>
+    <p>
+      Two coders label 10 customer support tickets as either <code>Bug</code> or
+      <code>Feature Request</code>. Rater A's list: Bug, Bug, Feature Request, Bug, Bug, Bug,
+      Feature Request, Bug, Bug, Bug. Rater B's list: Bug, Feature Request, Feature Request, Bug,
+      Bug, Bug, Feature Request, Bug, Feature Request, Bug. Comparing item by item, they agree on
+      8 of the 10 tickets, so percent agreement = 8/10 = 80%. But because 8 of Rater A's 10
+      labels are already <code>Bug</code>, a fair share of that 80% would happen even from two
+      raters guessing "Bug" most of the time — which is exactly what the automatically computed
+      Cohen's Kappa on this page corrects for. Paste this data into the boxes above (or click
+      <code>Load example data</code>) to see both numbers side by side.
+    </p>
+
+    <h2>Common Mistakes</h2>
+    <p>
+      The biggest mistake is reporting percent agreement alone in a methods section without a
+      chance-corrected statistic — reviewers in most fields expect to see Cohen's or Fleiss'
+      Kappa alongside it. A second is assuming a high percentage automatically means reliable
+      coding: with imbalanced categories, 80–90% agreement can still correspond to a mediocre
+      kappa. A third is pasting mismatched lists — if Rater A and Rater B's items aren't in the
+      exact same order, the comparison is meaningless, so double-check both lists represent the
+      same items before calculating.
+    </p>
+
     <h2>Related Tools</h2>
     <p>
       For the full chance-corrected statistic with a confidence interval, use the
@@ -266,6 +304,7 @@
     <div>
       <a href="/about.html">About</a>
       <a href="/privacy.html">Privacy Policy</a>
+      <a href="/terms.html">Terms of Use</a>
       <a href="/contact.html">Contact</a>
     </div>
     <div>&copy; <span id="year"></span> Kappa Calc. All calculations run locally in your browser.</div>
